@@ -1,0 +1,157 @@
+<style lang="less">
+    .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+    }
+
+    @font-face {
+        font-family: 'iconfont';  /* project id 837316 */
+        src: url('//at.alicdn.com/t/font_837316_z58hvulhrlb.eot');
+        src: url('//at.alicdn.com/t/font_837316_z58hvulhrlb.eot?#iefix') format('embedded-opentype'),
+        url('//at.alicdn.com/t/font_837316_z58hvulhrlb.woff') format('woff'),
+        url('//at.alicdn.com/t/font_837316_z58hvulhrlb.ttf') format('truetype'),
+        url('//at.alicdn.com/t/font_837316_z58hvulhrlb.svg#iconfont') format('svg');
+    }
+
+    .iconfont {
+        font-family: "iconfont" !important;
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .dianpu::before {
+        content: "\e65b";
+    }
+
+    .shezhi::before {
+        content: "\e63e";
+    }
+
+    .order::before {
+        content: "\e63b";
+    }
+
+    .vip::before {
+        content: "\e677";
+    }
+
+    .daili::before {
+        content: "\e60c";
+    }
+
+    .time::before {
+        content: "\e63f";
+    }
+
+    .yaoqing::before{
+        content: "\e621"
+    }
+
+    .jiangjin::before{
+        content: "\e664";
+    }
+    .kefu::before{
+        content: "\e7b0";
+    }
+    .wenti::before{
+        content: "\e620";
+    }
+    .yijianfankui::before{
+        content: "\e614";
+    }
+</style>
+
+<script>
+    import wepy from 'wepy'
+    import 'wepy-async-function'
+
+
+    export default class extends wepy.app {
+        config = {
+            pages: [
+                'pages/index',
+                'pages/message',
+                'pages/my',
+                'pages/progress',
+                'pages/login'
+            ],
+            window: {
+                backgroundTextStyle: 'light',
+                navigationBarBackgroundColor: '#217DDE',
+                navigationBarTitleText: '乐车邦',
+                navigationBarTextStyle: 'white'
+            },
+            tabBar: {
+                selectedColor: "#4e8cee",
+                color: "#333",
+                list: [
+                    {
+                        "pagePath": "pages/index",
+                        "text": "首页",
+                        "selectedColor": "#4e8cee",
+                        "iconPath": "images/home.png",
+                        "selectedIconPath": "images/activeHome.png"
+                    },
+                    {
+                        "pagePath": "pages/message",
+                        "text": "消息",
+                        "iconPath": "images/message.png",
+                        "selectedIconPath": "images/ac-message.png"
+                    },
+                    {
+                        "pagePath": "pages/my",
+                        "text": "我的",
+                        "iconPath": "images/my.png",
+                        "selectedIconPath": "images/ac-my.png"
+                    }
+                ]
+            }
+        }
+
+        globalData = {
+            userInfo: null
+        }
+
+        constructor() {
+            super()
+            this.use('requestfix')
+        }
+
+        onLaunch() {
+            this.testAsync()
+        }
+
+        sleep(s) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('promise resolved')
+                }, s * 1000)
+            })
+        }
+
+        async testAsync() {
+            const data = await this.sleep(3)
+            console.log(data)
+        }
+
+        getUserInfo(cb) {
+            const that = this
+            if (this.globalData.userInfo) {
+                return this.globalData.userInfo
+            }
+            wepy.getUserInfo({
+                success(res) {
+                    that.globalData.userInfo = res.userInfo
+                    cb && cb(res.userInfo)
+                }
+            })
+        }
+
+    }
+</script>

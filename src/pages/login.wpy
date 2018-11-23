@@ -1,90 +1,84 @@
 <style lang="less">
-    page{
+    page {
         background-color: #f4f4f8;
-    }
-    .userinfo {
-        margin-top: 40rpx;
-        height: 140rpx;
-        width: 100%;
-        background: #fff;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-left: none;
-        border-right: none;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        transition: all 300ms ease;
-    }
-
-    .userinfo-avatar {
-        width: 100rpx;
-        height: 100rpx;
-        margin: 20rpx;
-        border-radius: 50%;
-        background-size: cover;
-        background-color: white;
-    }
-
-    .userinfo-avatar:after {
-        border: none;
-    }
-
-    .userinfo-nickname {
-        font-size: 32rpx;
-        color: #007aff;
-        background-color: white;
-        background-size: cover;
-    }
-
-    .userinfo-nickname::after {
-        border: none;
-    }
-    .list-container{
-        margin-top: 30rpx;
-        width: 100%;
         height: 100%;
     }
 
-    .list-item{
-        height: 70rpx;
-        width: 100%;
-        background: #fff;
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        border-left: none;
-        border-right: none;
-        border-bottom: none;
+    .container {
         display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 10rpx 30rpx;
+        flex-direction: column;
+        padding: 30rpx;
+        box-sizing: border-box;
     }
-    .list-item-icon{
-        margin-right: 30rpx;
-        color: #217DDE;
 
+    .content {
+        width: 100%;
+        height: 100%;
+        margin-top: 100rpx;
     }
-    .list-item-text{
-        font-size: 32rpx;
-        color: #666;
+
+    .inputView {
+        display: flex;
+        align-items: center;
         background-color: white;
-        background-size: cover;
+        line-height: 90rpx;
+        height: 90rpx;
+        width: 100%;
+        margin-bottom: 20rpx;
+        border-radius: 8rpx;
     }
+
+    .inputText {
+        font-size: 36rpx;
+        color: #333;
+        margin-left: 30rpx;
+    }
+
+    .loginBtnView {
+        width: 100%;
+        background-color: #217dde;
+        margin-top: 36rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10rpx;
+        height: 100rpx;
+    }
+
+    .loginBtn {
+        font-size: 40rpx;
+        color: white;
+    }
+
+
+    .lcb-tip {
+        font-size: 36rpx;
+        color: #333;
+        position: absolute;
+        bottom: 60rpx;
+    }
+
 </style>
 <template>
-    <view class="container">
-        <view class="userinfo" @tap="handleViewTap">
-            <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
-            <view class="userinfo-nickname">{{ userInfo.nickName }}</view>
-        </view>
+    <view class='container'>
+        <view class='content'>
 
-        <view class="list-container">
-            <repeat for="{{groupList}}" key="id" item="item">
-                <view class='list-item'>
-                    <i class="iconfont {{item.icon}} list-item-icon"></i>
-                    <text class="list-item-text">{{item.name}}</text>
-                </view>
-            </repeat>
+            <!-- 手机号 -->
+            <view class='inputView'>
+                <input class='inputText' placeholder='请输入用户名' bindinput='phoneInput' />
+            </view>
+
+            <!-- 密码 -->
+            <view class='inputView'>
+                <input class='inputText' placeholder='请输入密码' bindinput='passwordInput' />
+            </view>
+
+            <!-- 登录按钮 -->
+            <view class='loginBtnView' @tap='loginBtnClick'>
+                <text class='loginBtn'>登录</text>
+            </view>
         </view>
+        <text class='lcb-tip'>乐车邦旗下商户服务平台</text>
     </view>
 </template>
 
@@ -101,9 +95,9 @@
     console.log('moduleA ignored: ', moduleA) // => moduleA ignored: {}
 
 
-    export default class my extends wepy.page {
+    export default class login extends wepy.page {
         config = {
-            navigationBarTitleText: '我的'
+            "navigationBarTitleText": "用户登录"
         }
         components = {
             panel: Panel,
@@ -114,49 +108,11 @@
             toast: Toast
         }
 
-        mixins = [testMixin]
 
         data = {
-            mynum: 20,
-            userInfo: {
-                nickName: '加载中...'
-            },
-            normalTitle: '原始标题',
-            setTimeoutTitle: '标题三秒后会被修改',
-            count: 0,
-            netrst: '',
-            groupList: [
-                {
-                    id: 1,
-                    name: '我的奖金',
-                    icon:'jiangjin'
-                },
-                {
-                    id: 2,
-                    name: '我的邀请',
-                    icon:'yaoqing'
-                },
-                {
-                    id: 3,
-                    name: '联系客服',
-                    icon:'kefu'
-                },
-                {
-                    id: 4,
-                    name: '常见问题',
-                    icon:'wenti'
-                },
-                {
-                    id: 5,
-                    name: '意见反馈',
-                    icon:'yijianfankui'
-                },
-                {
-                    id: 6,
-                    name: '设置',
-                    icon:'shezhi'
-                }
-            ]
+            phoneNumber: '',
+            password: '',
+            userInfo: {}
         }
 
         computed = {
@@ -180,7 +136,26 @@
                         }
                     })
                 }
-            }
+            },
+            //!!!!注意
+
+            phoneInput(event) {
+                console.log(event.detail.value);
+                this.phoneNumber = event.detail.value;
+                //与小程序有区别
+                // this.setData({
+                //     phoneNumber: event.detail.value
+                // })
+            },
+
+            passwordInput(event) {
+                console.log(event.detail.value);
+                this.password = event.detail.value;
+                // this.setData({
+                //     password: event.detail.value
+                // })
+            },
+
         }
 
         events = {
@@ -189,6 +164,9 @@
                 console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
             }
         }
+
+
+
 
         onLoad() {
             let self = this
@@ -206,6 +184,43 @@
 
                 self.$apply()
             })
+        }
+
+        loginBtnClick() {
+            var app = getApp();
+            console.log('loginBtnClick')
+            console.log(this.data)
+            if (this.data.phoneNumber.length == 0 || this.data.password.length == 0) {
+                wx.showToast({
+                    title: '用户名和密码不能为空',
+                    icon: 'none',
+                    duration: 2000
+                })
+            } else if (this.data.phoneNumber == 'songling' && this.data.password == '00') {
+                wx.showToast({
+                    title: '登录成功',
+                    icon: 'success',
+                    duration: 2000,
+                    success: function() {
+                        // app.globalData.userInfo = {
+                        //     phoneNumber: this.phoneNumber,
+                        //     password: this.password
+                        // }
+                        // 跳转至tab页不能用redirectTo呀呀呀呀呀呀呀呀！！！！！！！！！！
+                        wx.switchTab({
+                            url: './index',
+                        })
+                    }
+
+                })
+            } else {
+                wx.showToast({
+                    title: '登录失败',
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+
         }
     }
 </script>

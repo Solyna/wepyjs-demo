@@ -1,0 +1,15 @@
+{
+	"description": "biz首恶",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"appid": "wxf05e9bce118be9c5",
+	"projectname": "biz",
+	"miniprogramRoot": "dist/",
+	"condition": {}
+}

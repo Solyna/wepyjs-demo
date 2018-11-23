@@ -1,62 +1,52 @@
 <style lang="css">
-    page {
-        background-color: #f4f4f8;
-    }
+    /* 进度条 */
 
-    .msg-container {
-        width: 100%;
-        height: 100%;
-    }
-
-    .sh-container {
-        background-color: white;
-        padding: 30rpx;
-    }
-
-    .sh-container-child {
+    .progress_box {
+        position: relative;
+        width: 100px;
+        height: 100px;
         display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        background-color: #41b8e7;
-        border-radius: 8rpx;
-        padding: 20rpx;
-        height: 200rpx;
-        /* border: 2rpx solid black; */
-    }
-
-    .sh-title {
-        font-size: 32rpx;
-        line-height: 40rpx;
-        color: white;
-    }
-
-    .sh-content {
-        display: flex;
-        flex-direction: row;
-        /* border: 2rpx solid black; */
         align-items: center;
-        justify-content: space-between;
-        padding: 20rpx 30rpx;
+        justify-content: center;
+        background-color: white;
     }
 
-    .sh-content-item {
+    .progress_bg {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+    }
+
+    .progress_canvas {
+        width: 80px;
+        height: 80px;
+    }
+
+    .progress_text {
+        position: absolute;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
     }
 
-    .sh-content-num {
-        font-size: 50rpx;
-        color: white;
+    .progress_info {
+        font-size: 30 rpx;
+        letter-spacing: 2 rpx;
+        color: #217dde;
     }
 
-    .sh-content-text {
-        font-size: 30rpx;
-        color: white;
-        margin-top: 18rpx;
+    .progress_dot {
+        width: 16 rpx;
+        height: 16 rpx;
+        border-radius: 50%;
+        background-color: #fb9126;
     }
-
+    .swiper-container{
+        width: 750rpx;
+        height: 100%;
+        border: 2rpx solid red;
+        margin-top: 40rpx;
+    }
     .task-container {
         display: flex;
         flex-direction: column;
@@ -106,154 +96,51 @@
         color: #217dde;
     }
 
-    /* 进度条 */
-
-    .grid-container {
-        flex: 1;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        border: 2rpx solid #e9e9e9;
-        border-bottom: 0;
-        margin: 20rpx 0;
-        background-color: white;
-    }
-
-    .grid-item {
-        flex: 1;
-        padding: 60rpx;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border-left: 2rpx solid #e9e9e9;
-        border-bottom: 2rpx solid #e9e9e9;
-    }
-
-    .grid-content-icon {
-        font-size: 66rpx;
-        color: white;
-    }
-
-    .grid-content-text {
-        font-size: 30rpx;
-        color: #666;
-        margin-top: 6rpx;
-    }
-
-    .icon-content {
-        width: 100rpx;
-        height: 100rpx;
-        border-radius: 50%;
-        line-height: 100rpx;
-        text-align: center;
-    }
-
-    .progress_box {
-        position: relative;
-        width: 100px;
-        height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #fff;
-    }
-
-    .progress_bg {
-        position: absolute;
-        width: 80px;
-        height: 80px;
-    }
-
-    .progress_canvas {
-        width: 80px;
-        height: 80px;
-    }
-
-    .progress_text {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .progress_info {
-        font-size: 30rpx;
-        letter-spacing: 2rpx;
-        color: #217dde;
-    }
-
-    .progress_dot {
-        width: 16rpx;
-        height: 16rpx;
-        border-radius: 50%;
-        background-color: #fb9126;
-    }
-
 </style>
 <template>
-    <view class='msg-container'>
+    <view class='container'>
+        <view class='container'>
+            <!--<view class='progress_box'>-->
+                <!--<canvas class="progress_bg" canvas-id="canvasProgressbg"></canvas>-->
+                <!--<canvas class="progress_canvas" canvas-id="canvasProgress"></canvas>-->
+                <!--<view class="progress_text">-->
+                    <!--<text class='progress_info'> {{progress_txt}}</text>-->
+                <!--</view>-->
+            <!--</view>-->
 
-        <!-- 售后部 -->
-        <view class='sh-container'>
-            <view class='sh-container-child'>
-                <view class='sh-title'>
-                    售后部
-                    <i class="iconfont shezhi"></i>
-                </view>
-                <view class='sh-content'>
-                    <view class='sh-content-item'>
-                        <text class='sh-content-num'>1</text>
-                        <text class='sh-content-text'>店铺排名</text>
-                    </view>
-                    <view class='sh-content-item'>
-                        <text class='sh-content-num'>2301</text>
-                        <text class='sh-content-text'>完成订单</text>
-                    </view>
-                    <view class='sh-content-item'>
-                        <text class='sh-content-num'>98%</text>
-                        <text class='sh-content-text'>好评率</text>
-                    </view>
-                </view>
-            </view>
-        </view>
-
-        <!-- 新车销售个人任务 -->
-        <view class='task-container'>
-            <view class='task-container-child'>
-                <view class='task-title'>
-                    新车销售部个人任务
-                    <i class="iconfont shezhi"></i>
-                </view>
-                <view class='task-content'>
+            <view class="swiper-container">
+                <!--swiper-->
+                <swiper indicator-dots="{{indicatorDots}}"
+                        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
                     <repeat for="{{taskList}}" key="id" item="item">
-                        <view class='task-content-item'>
-                            <view class='container'>
-                                <view class='progress_box'>
-                                    <canvas class="progress_bg" canvas-id="{{item.progressbg}}"></canvas>
-                                    <canvas class="progress_canvas" canvas-id="{{item.progress}}"></canvas>
-                                    <view class="progress_text">
-                                        <text class='progress_info'> {{item.progress_txt}}</text>
+                        <block>
+                            <swiper-item>
+                                <view class='task-content-item'>
+                                    <view class='container'>
+                                        <view class='progress_box'>
+                                            <canvas class="progress_bg" canvas-id="{{item.progressbg}}"></canvas>
+                                            <canvas class="progress_canvas" canvas-id="{{item.progress}}"></canvas>
+                                            <view class="progress_text">
+                                                <text class='progress_info'> {{item.progress_txt}}</text>
+                                            </view>
+                                        </view>
                                     </view>
+                                    <text class='task-content-text'>{{item.title}}</text>
                                 </view>
-                            </view>
-                            <text class='task-content-text'>{{item.title}}</text>
-                        </view>
+                            </swiper-item>
+                        </block>
                     </repeat>
-                </view>
-            </view>
-        </view>
+                    <!--<repeat for="{{imgUrls}}" item="item">-->
+                        <!--<block>-->
+                            <!--<swiper-item>-->
+                                <!--<view style="width:750rpx;height: 150rpx">{{item}}</view>-->
+                            <!--</swiper-item>-->
+                        <!--</block>-->
+                    <!--</repeat>-->
 
-        <!-- 九宫格列表 -->
-        <view class='grid-container'>
-            <repeat for="{{gridList}}" key="id" item="item">
-                <view class='grid-item'>
-                    <view class='icon-content' style='background-color: {{item.bgColor}};'>
-                        <i class="iconfont {{item.icon}} grid-content-icon"></i>
-                    </view>
-                    <text class='grid-content-text'>{{ item.name }}</text>
-                </view>
-            </repeat>
+                </swiper>
+            </view>
+
         </view>
     </view>
 </template>
@@ -271,9 +158,9 @@
     console.log('moduleA ignored: ', moduleA); // => moduleA ignored: {}
 
 
-    export default class Index extends wepy.page {
+    export default class progress extends wepy.page {
         config = {
-            navigationBarTitleText: '首页'
+            navigationBarTitleText: '进度条'
         };
         components = {
             panel: Panel,
@@ -287,6 +174,12 @@
         mixins = [testMixin];
 
         data = {
+            progress_txt: '65/122',
+            imgUrls: [
+                '../images/my.png',
+                '../images/my1.png',
+                '../images/my2.png',
+            ],
             taskList: [{
                 id: 1,
                 title: '留档量',
@@ -308,88 +201,15 @@
                     progress: 'canvasProgress2'
                 }
             ],
-            gridList: [
-                {
-                    id: 1,
-                    name: "新车审批",
-                    icon: 'time',
-                    bgColor: '#5FB9FF'
-                },
-                {
-                    id: 2,
-                    name: "业务报表",
-                    icon: 'daili',
-                    bgColor: '#3AC14E'
-                },
-                {
-                    id: 3,
-                    name: "员工业绩",
-                    icon: 'order',
-                    bgColor: '#4189FF'
-                },
-                {
-                    id: 4,
-                    name: "潜客分配",
-                    icon: 'order',
-                    bgColor: '#F5B248'
-                },
-                {
-                    id: 5,
-                    name: "新车线索",
-                    icon: 'order',
-                    bgColor: '#F7874B'
-                },
-                {
-                    id: 6,
-                    name: "客户管理",
-                    icon: 'order',
-                    bgColor: '#1EAFE5'
-                },
-                {
-                    id: 7,
-                    name: "车辆管理",
-                    icon: 'daili',
-                    bgColor: '#8092FC'
-                },
-                {
-                    id: 8,
-                    name: "营销工具",
-                    icon: 'daili',
-                    bgColor: '#C089D9'
-                },
-                {
-                    id: 9,
-                    name: "使用帮助",
-                    icon: 'order',
-                    bgColor: '#C089D9'
-                },
-                {
-                    id: 10,
-                    name: "保险客户",
-                    icon: 'order',
-                    bgColor: '#5594FC'
-                },
-                {
-                    id: 11,
-                    name: "车辆库存",
-                    icon: 'order',
-                    bgColor: '#6488ED'
-                },
-                {
-                    id: 12,
-                    name: "新车潜客",
-                    icon: 'order',
-                    bgColor: '#59A9F4'
-                },
-
-            ]
+            indicatorDots: true,
+            autoplay: true,
+            interval: 5000,
+            duration: 1000
         };
 
         computed = {};
 
-        methods = {
-
-        }
+        methods = {}
 
         onReady() {
             const a = ['canvasProgressbg', 'canvasProgressbg1', 'canvasProgressbg2']
@@ -411,8 +231,8 @@
             b.forEach((item) => {
                 this.drawCircle(item.step, item.name)
             })
-
         }
+
         onLoad() {
 
         }
@@ -446,5 +266,37 @@
             context.stroke();
             context.draw()
         }
+
+        // drawProgressbg() {
+        //     // 使用 wx.createContext 获取绘图上下文 context
+        //     var ctx = wx.createCanvasContext('canvasProgressbg')
+        //     ctx.setLineWidth(6); // 设置圆环的宽度
+        //     ctx.setStrokeStyle('#e9e9e9'); // 设置圆环的颜色
+        //     ctx.setLineCap('round') // 设置圆环端点的形状
+        //     ctx.beginPath(); //开始一个新的路径
+        //     ctx.arc(40, 40, 30, 0, 2 * Math.PI, false);
+        //     //设置一个原点(110,110)，半径为100的圆的路径到当前路径
+        //     ctx.stroke(); //对当前路径进行描边
+        //     ctx.draw();
+        // }
+        //
+        // drawCircle(step) {
+        //     var context = wx.createCanvasContext('canvasProgress');
+        //     // 设置渐变
+        //     // var gradient = context.createLinearGradient(200, 100, 100, 200);
+        //     // gradient.addColorStop("0", "#2661DD");
+        //     // gradient.addColorStop("0.5", "#40ED94");
+        //     // gradient.addColorStop("1.0", "#5956CC");
+        //     context.setStrokeStyle('#217dde'); // 设置圆环的颜色
+        //
+        //     context.setLineWidth(8);
+        //     // context.setStrokeStyle(gradient);
+        //     context.setLineCap('round')
+        //     context.beginPath();
+        //     // 参数step 为绘制的圆环周长，从0到2为一周 。 -Math.PI / 2 将起始角设在12点钟位置 ，结束角 通过改变 step 的值确定
+        //     context.arc(40, 40, 30, -Math.PI / 2, step * Math.PI - Math.PI / 2, false);
+        //     context.stroke();
+        //     context.draw()
+        // }
     }
 </script>
